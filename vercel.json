@@ -7,7 +7,7 @@
     "api/**/*.ts": {
       "runtime": "nodejs18.x"
     },
-    "api/*.php": {
+    "api/**/*.php": {
       "runtime": "vercel-php@0.6.0"
     }
   },

@@ -37,6 +37,8 @@ training_metrics.png
 **/*.node
 .next
 .swc
+.next/
+.swc/
 
 # Keep vercel config
 !vercel.json
