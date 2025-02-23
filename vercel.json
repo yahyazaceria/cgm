@@ -8,7 +8,7 @@
       "runtime": "nodejs18.x"
     },
     "api/**/*.php": {
-      "runtime": "now-php@1.0.0",
+      "runtime": "@vercel/php@1.3.3",
       "maxDuration": 30
     }
   },
