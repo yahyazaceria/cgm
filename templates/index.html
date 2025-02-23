@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daily Glucose Monitoring</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .chart-container {
+            height: 500px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Daily Glucose Levels</h1>
+        <div class="chart-container">
+            <canvas id="glucoseChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        let chart;
+        const socket = io();
+
+        function initChart(data) {
+            const ctx = document.getElementById('glucoseChart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.map(reading => new Date(reading.timestamp).toLocaleTimeString()),
+                    datasets: [{
+                        label: 'Glucose Level (mg/dL)',
+                        data: data.map(reading => reading.glucose_level),
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Time'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Glucose Level (mg/dL)'
+                            },
+                            suggestedMin: 70,
+                            suggestedMax: 180
+                        }
+                    }
+                }
+            });
+        }
+
+        // Load initial data
+        fetch('/get_readings')
+            .then(response => response.json())
+            .then(data => {
+                initChart(data);
+            });
+
+        // Handle real-time updates
+        socket.on('update_graph', function(reading) {
+            if (chart) {
+                chart.data.labels.push(new Date(reading.timestamp).toLocaleTimeString());
+                chart.data.datasets[0].data.push(reading.glucose_level);
+                chart.update();
+            }
+        });
+    </script>
+</body>
+</html>
