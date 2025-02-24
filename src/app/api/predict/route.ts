@@ -1,20 +1,29 @@
 import { NextResponse } from 'next/server';
-import { exec } from 'child_process';
-import { promisify } from 'util';
-
-const execAsync = promisify(exec);
 
 export async function POST(request: Request) {
   try {
-    const data = await request.formData();
-    const image = data.get('image');
+    const formData = await request.formData();
+    const image = formData.get('image');
     
-    // Handle image and call Python script
-    const { stdout } = await execAsync(`python transfer_cnn.py ${image}`);
-    const glucoseLevel = parseFloat(stdout);
+    if (!image) {
+      return NextResponse.json(
+        { error: 'No image provided' },
+        { status: 400 }
+      );
+    }
 
-    return NextResponse.json({ glucoseLevel });
-  } catch (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    // Placeholder for ML model integration
+    // For now, return a mock value
+    const mockGlucoseLevel = Math.floor(Math.random() * (180 - 70) + 70);
+
+    return NextResponse.json({
+      glucoseLevel: mockGlucoseLevel
+    });
+  } catch (err) {
+    console.error('Error processing image:', err);
+    return NextResponse.json(
+      { error: 'Failed to process image' },
+      { status: 500 }
+    );
   }
 } 
