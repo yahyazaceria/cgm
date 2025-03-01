@@ -2,8 +2,8 @@ import './globals.css'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Glucose Monitor',
-  description: 'Non-invasive glucose monitoring system',
+  title: 'Glucose Level Tracker',
+  description: 'Track your glucose levels using image analysis',
 }
 
 export default function RootLayout({
@@ -16,4 +16,4 @@ export default function RootLayout({
       <body>{children}</body>
     </html>
   )
-}
+} 
