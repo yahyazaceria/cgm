@@ -81,7 +81,9 @@ def process_image(frame):
     interpreter.invoke()
     prediction = interpreter.get_tensor(output_details[0]['index'])
     
-    glucose_level = float(prediction[0][0])
+    # Scale the prediction to realistic glucose levels (70-300 mg/dL)
+    raw_prediction = float(prediction[0][0])
+    glucose_level = (raw_prediction * 230) + 70  # Scales 0-1 to 70-300 mg/dL
     print(f"Glucose level measured: {glucose_level:.1f} mg/dL")
     return glucose_level
 
