@@ -90,7 +90,7 @@ export default function GlucoseChart({ readings, selectedDate, onDateChange }: P
                 y: {
                   beginAtZero: false,
                   min: 0,
-                  max: 300,
+                  max: 350,
                   title: {
                     display: true,
                     text: 'Glucose Level (mg/dL)'
