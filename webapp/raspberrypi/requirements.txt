@@ -1,6 +1,0 @@
-numpy
-requests
-RPi.GPIO
-picamera2
-tflite-runtime
-pillow 
