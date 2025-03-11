@@ -349,10 +349,10 @@ def train_model():
     model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=1e-5),
                   loss='huber', metrics=['mae'])
     history_fine = model.fit(X_train, y_train_norm,
-                             validation_data=(X_val, y_val_norm),
+        validation_data=(X_val, y_val_norm),
                              epochs=EPOCHS_FINE,
-                             batch_size=16,
-                             callbacks=callbacks,
+        batch_size=16,
+        callbacks=callbacks,
                              verbose=1)
     # Evaluate final model
     y_pred_norm = model.predict(X_test)

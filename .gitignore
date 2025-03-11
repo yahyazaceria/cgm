@@ -40,6 +40,11 @@ training_metrics.png
 .next/
 .swc/
 
+# Next.js
+webapp/.next/
+webapp/out/
+webapp/node_modules/
+
 # Keep vercel config
 !vercel.json
 data/images/1_2024-11-13_15-34-20.jpg
