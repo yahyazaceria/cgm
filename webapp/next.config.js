@@ -4,7 +4,7 @@ const nextConfig = {
     // Remove serverActions as it's now default
   },
   webpack: (config) => {
-    config.externals = [...config.externals, 'canvas', 'jsdom'];
+    config.externals = [...(config.externals || []), 'canvas', 'jsdom'];
     return config;
   }
 }

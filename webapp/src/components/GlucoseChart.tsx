@@ -1,9 +1,7 @@
 'use client'
 
-import { useState } from 'react'
 import { Line } from 'react-chartjs-2'
 import Calendar from 'react-calendar'
-import 'react-calendar/dist/Calendar.css'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -14,7 +12,9 @@ import {
   Tooltip,
   Legend
 } from 'chart.js'
+import 'react-calendar/dist/Calendar.css'
 
+// Register ChartJS components
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -26,8 +26,10 @@ ChartJS.register(
 )
 
 interface GlucoseReading {
+  id: number
   value: number
   timestamp: string
+  deviceId: string
 }
 
 interface Props {
@@ -68,7 +70,7 @@ export default function GlucoseChart({ readings, selectedDate, onDateChange }: P
 
   return (
     <div className="flex flex-col md:flex-row gap-4">
-      <div className="order-2 md:order-1 md:w-96 p-4 bg-gray-50 rounded-lg">
+      <div className="order-2 md:order-1 md:w-[400px] p-6 bg-white rounded-lg shadow-sm">
         <Calendar
           onChange={onDateChange}
           value={selectedDate}
@@ -76,11 +78,12 @@ export default function GlucoseChart({ readings, selectedDate, onDateChange }: P
             const dateStr = date.toISOString().split('T')[0]
             return datesWithReadings.has(dateStr) ? 'has-readings' : ''
           }}
+          className="mx-auto scale-125"
         />
       </div>
       
-      <div className="order-1 md:order-2 flex-1">
-        <div className="w-full h-[200px] md:h-[400px]">
+      <div className="order-1 md:order-2 flex-1 bg-white p-6 rounded-lg shadow-sm">
+        <div className="w-full h-[400px]">
           <Line
             data={data}
             options={{

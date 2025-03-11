@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "buildCommand": "cd webapp && npm install && npm run build",
-  "outputDirectory": "webapp/.next",
-  "devCommand": "cd webapp && npm run dev",
   "framework": "nextjs",
+  "outputDirectory": "webapp/.next",
+  "buildCommand": "cd webapp && npm install && npm run build",
+  "devCommand": "cd webapp && npm run dev",
+  "rootDirectory": "webapp",
   "routes": [
     {
       "src": "/api/(.*)",
