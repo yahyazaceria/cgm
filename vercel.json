@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "buildCommand": "cd webapp && npm install && npm run build",
+  "outputDirectory": "webapp/.next",
+  "devCommand": "cd webapp && npm run dev",
+  "framework": "nextjs",
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ]
+}
