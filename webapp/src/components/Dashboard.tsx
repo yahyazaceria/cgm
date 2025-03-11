@@ -1,9 +1,12 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { MouseEvent } from 'react'
 import GlucoseChart from './GlucoseChart'
+import { Value } from 'react-calendar/dist/cjs/shared/types'
 
-interface GlucoseReading {
+// Move interface to a separate types file
+export interface GlucoseReading {
   id: number
   value: number
   timestamp: string
@@ -11,25 +14,36 @@ interface GlucoseReading {
 }
 
 export default function Dashboard() {
+  // Explicitly type the state
   const [selectedDate, setSelectedDate] = useState<Date>(new Date())
   const [readings, setReadings] = useState<GlucoseReading[]>([])
   const [loading, setLoading] = useState(true)
 
   // Filter readings for selected date
   const selectedDateStr = selectedDate.toISOString().split('T')[0]
-  const filteredReadings = readings.filter(reading => {
-    const readingDate = new Date(reading.timestamp).toISOString().split('T')[0]
-    return readingDate === selectedDateStr
-  })
+  const filteredReadings = Array.isArray(readings) 
+    ? readings.filter((reading) => {
+        const readingDate = new Date(reading.timestamp).toISOString().split('T')[0]
+        return readingDate === selectedDateStr
+      })
+    : []
 
   useEffect(() => {
     const fetchReadings = async () => {
       try {
         const response = await fetch('/api/readings')
         const data = await response.json()
-        setReadings(data)
+        
+        // Validate the response data
+        if (Array.isArray(data)) {
+          setReadings(data as GlucoseReading[])
+        } else {
+          console.error('Invalid data format:', data)
+          setReadings([])
+        }
       } catch (err) {
         console.error('Failed to fetch readings:', err)
+        setReadings([])
       } finally {
         setLoading(false)
       }
@@ -40,6 +54,12 @@ export default function Dashboard() {
     const interval = setInterval(fetchReadings, 30000)
     return () => clearInterval(interval)
   }, [])
+
+  const handleDateChange = (value: Value, event: MouseEvent<HTMLButtonElement>) => {
+    if (value instanceof Date) {
+      setSelectedDate(value)
+    }
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4">
@@ -52,7 +72,7 @@ export default function Dashboard() {
           <GlucoseChart 
             readings={readings}
             selectedDate={selectedDate}
-            onDateChange={setSelectedDate}
+            onDateChange={handleDateChange}
           />
           
           <div className="overflow-x-auto bg-white rounded-lg shadow-sm">

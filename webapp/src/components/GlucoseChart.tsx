@@ -2,6 +2,7 @@
 
 import { Line } from 'react-chartjs-2'
 import Calendar from 'react-calendar'
+import { MouseEvent } from 'react'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,6 +14,7 @@ import {
   Legend
 } from 'chart.js'
 import 'react-calendar/dist/Calendar.css'
+import { Value } from 'react-calendar/dist/cjs/shared/types'
 
 // Register ChartJS components
 ChartJS.register(
@@ -35,7 +37,7 @@ interface GlucoseReading {
 interface Props {
   readings: GlucoseReading[]
   selectedDate: Date
-  onDateChange: (date: Date) => void
+  onDateChange: (value: Value, event: MouseEvent<HTMLButtonElement>) => void
 }
 
 export default function GlucoseChart({ readings, selectedDate, onDateChange }: Props) {
@@ -71,15 +73,17 @@ export default function GlucoseChart({ readings, selectedDate, onDateChange }: P
   return (
     <div className="flex flex-col md:flex-row gap-4">
       <div className="order-2 md:order-1 md:w-[400px] p-6 bg-white rounded-lg shadow-sm">
-        <Calendar
-          onChange={onDateChange}
-          value={selectedDate}
-          tileClassName={({ date }) => {
-            const dateStr = date.toISOString().split('T')[0]
-            return datesWithReadings.has(dateStr) ? 'has-readings' : ''
-          }}
-          className="mx-auto scale-125"
-        />
+        <div className="mt-8">
+          <Calendar
+            onChange={onDateChange}
+            value={selectedDate}
+            tileClassName={({ date }) => {
+              const dateStr = date.toISOString().split('T')[0]
+              return datesWithReadings.has(dateStr) ? 'has-readings' : ''
+            }}
+            className="mx-auto scale-125"
+          />
+        </div>
       </div>
       
       <div className="order-1 md:order-2 flex-1 bg-white p-6 rounded-lg shadow-sm">

@@ -1,5 +1,5 @@
+import { prisma } from '@/lib/prisma'
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
 
 export async function GET() {
   try {
@@ -9,8 +9,8 @@ export async function GET() {
       }
     })
     return NextResponse.json(readings)
-  } catch (err) {
-    console.error('Failed to fetch readings:', err)
+  } catch (error) {
+    console.error('Database Error:', error)
     return NextResponse.json(
       { error: 'Failed to fetch readings' },
       { status: 500 }
@@ -20,17 +20,16 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const data = await request.json()
+    const body = await request.json()
     const reading = await prisma.glucoseReading.create({
       data: {
-        value: data.value,
-        deviceId: data.deviceId,
-        timestamp: new Date()
+        value: body.value,
+        deviceId: body.deviceId
       }
     })
     return NextResponse.json(reading)
-  } catch (err) {
-    console.error('Failed to create reading:', err)
+  } catch (error) {
+    console.error('Database Error:', error)
     return NextResponse.json(
       { error: 'Failed to create reading' },
       { status: 500 }

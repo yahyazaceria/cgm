@@ -2,25 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-rgb: 255, 255, 255;
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
+/* Calendar styles */
+.react-calendar {
+  width: 100%;
+  background: white;
+  border: none;
+  font-family: inherit;
 }
 
 .has-readings {
-  background-color: rgba(75, 192, 192, 0.2) !important;
-}
-
-.react-calendar {
-  width: 100% !important;
-  border: none !important;
-  background: transparent !important;
-  font-size: 0.875rem !important;
+  background-color: rgb(75, 192, 192, 0.2);
 }
 
 .react-calendar__month-view__days__day {
