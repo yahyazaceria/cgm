@@ -27,11 +27,17 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Large files and ML models
+# Large files
 *.h5
-*.hdf5
-*.pkl
-training_metrics.png
+*.tflite
+*.model
+*.weights
+*.tar.gz
+*.zip
+
+# ML related
+models/
+training_metrics*.png
 
 # Next.js specific
 **/*.node
