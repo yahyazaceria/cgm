@@ -1,9 +1,9 @@
-# OASIS – AI-Enhanced Non-Invasive Glucose Monitoring System (CGM)
+# AI-Enhanced Non-Invasive Glucose Monitoring System (CGM)
 ![hippo](https://github.com/yahyazaceria/cgm/blob/74a41d8ec794e3894c19bc23daef972b7a5afeed/circuit.png)
 
 ---
 ## Project Description
-OASIS (Optical Spectroscopy Integrated System) is a non-invasive, affordable glucose monitoring solution using optical spectroscopy techniques and advanced machine learning. The system employs spectroscopy imaging combined with convolutional neural networks (CNNs), transfer learning, and generative adversarial networks (GANs) for reliable and accurate glucose prediction.
+The Optical Spectroscopy Integrated System is a non-invasive, affordable glucose monitoring solution using optical spectroscopy techniques and advanced machine learning. The system employs spectroscopy imaging combined with convolutional neural networks (CNNs), transfer learning, and generative adversarial networks (GANs) for reliable and accurate glucose prediction.
 
 ---
 ## Key Components
